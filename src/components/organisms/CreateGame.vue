@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import Button from "~/components/atoms/Button.vue";
 import LinkButton from "~/components/atoms/LinkButton.vue";
 import { ErrorMessage } from "~/enums/error.enum";
 import { useNameStore } from "~/stores/name.store";
 import { insertRoom } from "~/supabase/api/room.api";
 
-const route = useRoute();
 const router = useRouter();
 
 const nameStore = useNameStore();
