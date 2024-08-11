@@ -39,6 +39,7 @@ onMounted(() => {
 });
 
 onUnmounted(async () => {
+  await heartbeatChannel.unsubscribe();
   await supabase.removeChannel(heartbeatChannel);
   clearInterval(heartbeatIntervalId);
 });
@@ -59,9 +60,7 @@ onUnmounted(async () => {
       leave-to-class="opacity-0"
       mode="out-in"
     >
-      <button v-if="latency < 0" @click="() => $router.go(0)">
-        refresh
-      </button>
+      <button v-if="latency < 0" @click="() => $router.go(0)">refresh</button>
       <p v-else>
         {{ latency.toFixed() }}
       </p>
