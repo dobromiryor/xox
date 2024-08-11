@@ -1,24 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Button from "~/components/atoms/Button.vue";
 import LinkButton from "~/components/atoms/LinkButton.vue";
 import { ErrorMessage } from "~/enums/error.enum";
 import { useNameStore } from "~/stores/name.store";
+import { useRoomStore } from "~/stores/room.store";
 import { insertRoom } from "~/supabase/api/room.api";
 
 const router = useRouter();
 
 const nameStore = useNameStore();
-
-const isLoadingState = ref(false);
+const roomStore = useRoomStore();
 
 const createRoom = async () => {
   router.replace({ query: null! });
   if (nameStore.name) {
-    isLoadingState.value = true;
-    const { data, isLoading } = await insertRoom();
-    isLoadingState.value = isLoading;
+    const { data } = await insertRoom();
 
     localStorage.setItem("xox", nameStore.name);
 
@@ -39,7 +36,7 @@ const createRoom = async () => {
 <template>
   <div class="flex-1 flex flex-col justify-end gap-2">
     <LinkButton to="/stats">Stats</LinkButton>
-    <Button class="w-full" :disabled="isLoadingState" @click="createRoom"
+    <Button class="w-full" :disabled="roomStore.isLoading" @click="createRoom"
       >New game</Button
     >
   </div>

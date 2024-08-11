@@ -8,6 +8,8 @@ export const getStats = async () => {
 
   statsStore.$reset();
 
+  statsStore.isLoading = true;
+
   const { data } = await supabase.from("rooms").select();
 
   if (data) {

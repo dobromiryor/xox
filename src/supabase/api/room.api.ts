@@ -1,5 +1,4 @@
 import { generateSlug } from "random-word-slugs";
-import { ref } from "vue";
 import { BOARD } from "~/consts/board.const";
 import { useNameStore } from "~/stores/name.store";
 import { useRoomStore } from "~/stores/room.store";
@@ -13,7 +12,7 @@ export const insertRoom = async (
   const nameStore = useNameStore();
   const roomStore = useRoomStore();
 
-  const isLoading = ref(true);
+  roomStore.isLoading = true;
 
   const { data } = await supabase
     .from("rooms")
@@ -26,16 +25,13 @@ export const insertRoom = async (
     .limit(1)
     .single();
 
-  isLoading.value = false;
   if (data) {
     if (syncData) {
       roomStore.setDataFromResponse(data);
     }
-
-    return { data, isLoading: isLoading.value };
   }
 
-  return { data: null, isLoading: isLoading.value };
+  return { data };
 };
 
 export const findRoomByName = async (
@@ -43,7 +39,8 @@ export const findRoomByName = async (
   { syncData } = { syncData: true }
 ) => {
   const roomStore = useRoomStore();
-  const isLoading = ref(true);
+
+  roomStore.isLoading = true;
 
   const { data } = await supabase
     .from("rooms")
@@ -51,13 +48,11 @@ export const findRoomByName = async (
     .eq("room_name", room_name)
     .maybeSingle();
 
-  isLoading.value = false;
-
   if (syncData) {
     roomStore.setDataFromResponse(data);
   }
 
-  return { data, isLoading: isLoading.value };
+  return { data };
 };
 
 export const updateRoomByName = async (
@@ -66,7 +61,8 @@ export const updateRoomByName = async (
   { syncData } = { syncData: true }
 ) => {
   const roomStore = useRoomStore();
-  const isLoading = ref(true);
+
+  roomStore.isLoading = true;
 
   const { data } = await supabase
     .from("rooms")
@@ -79,7 +75,7 @@ export const updateRoomByName = async (
     roomStore.setDataFromResponse(data);
   }
 
-  return { data, isLoading: isLoading.value };
+  return { data };
 };
 
 export const deleteRoom = async (
@@ -87,15 +83,12 @@ export const deleteRoom = async (
   { syncData } = { syncData: true }
 ) => {
   const roomStore = useRoomStore();
-  const isLoading = ref(true);
+
+  roomStore.isLoading = true;
 
   await supabase.from("rooms").delete().eq("room_name", room_name);
-
-  isLoading.value = false;
 
   if (syncData) {
     roomStore.$reset();
   }
-
-  return { isLoading: isLoading.value };
 };

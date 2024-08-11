@@ -37,7 +37,8 @@ const roomStore = useRoomStore();
           !!roomStore.board?.[rowIndex][squareIndex] ||
           !(roomStore.player?.mark === roomStore.turn) ||
           !!roomStore.result ||
-          !!!roomStore.opponent
+          !!!roomStore.opponent ||
+          roomStore.isLoading
         "
         @click="$emit('handleClick')"
       >

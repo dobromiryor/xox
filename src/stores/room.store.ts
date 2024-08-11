@@ -14,6 +14,8 @@ type MarkType = Database["public"]["Enums"]["mark"];
 export const useRoomStore = defineStore("room", () => {
   const nameStore = useNameStore();
 
+  const isLoading = ref(false);
+
   const id: Ref<number | undefined> = ref();
   const room_name: Ref<string | undefined> = ref();
   const x: Ref<string | null> = ref(null);
@@ -53,6 +55,8 @@ export const useRoomStore = defineStore("room", () => {
     turn.value = Mark.X;
 
     players.value = [];
+
+    isLoading.value = false;
   };
 
   const setDataFromResponse = (
@@ -65,10 +69,14 @@ export const useRoomStore = defineStore("room", () => {
     result.value = data?.result ?? null;
     board.value = data?.board ?? BOARD;
     turn.value = data?.turn ?? Mark.X;
+
+    isLoading.value = false;
   };
 
   return {
     /* state */
+    isLoading,
+
     id,
     room_name,
     x,
