@@ -1,18 +1,16 @@
 import { RouteLocationNormalizedGeneric } from "vue-router";
 import { Result } from "~/enums/result.enum";
-import { useNameStore } from "~/stores/name.store";
 import { useRoomStore } from "~/stores/room.store";
 import { deleteRoom, updateRoomByName } from "~/supabase/api/room.api";
 
 export const onBeforeRoomLeave = async (
-  leaveGuard: RouteLocationNormalizedGeneric
+  leaveGuard: Partial<RouteLocationNormalizedGeneric>,
+  name: string | null,
+  roomStore: ReturnType<typeof useRoomStore>
 ) => {
-  const nameStore = useNameStore();
-  const roomStore = useRoomStore();
-
   if (!roomStore.room_name) return;
   /* kicked for duplicate name */
-  if (!!leaveGuard.query.error) return true;
+  if (!!leaveGuard.query?.error) return true;
   /* game over */
   if (roomStore.result) return true;
 
@@ -22,9 +20,7 @@ export const onBeforeRoomLeave = async (
     );
 
     if (answer) {
-      const winner = roomStore.players.find(
-        (player) => player.name !== nameStore.name
-      );
+      const winner = roomStore.players.find((player) => player.name !== name);
       const result =
         roomStore.x === winner?.name
           ? Result.X
@@ -41,7 +37,7 @@ export const onBeforeRoomLeave = async (
   } else {
     const answer = window.confirm("Are you sure you want to leave?");
 
-    if (roomStore.x === nameStore.name) {
+    if (roomStore.x === name) {
       if (answer) {
         await deleteRoom(roomStore.room_name);
 

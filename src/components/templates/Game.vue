@@ -158,7 +158,10 @@ onMounted(() => {
 });
 onUnmounted(() => supabase.removeAllChannels());
 
-onBeforeRouteLeave(async (leaveGuard) => await onBeforeRoomLeave(leaveGuard));
+onBeforeRouteLeave(
+  async (leaveGuard) =>
+    await onBeforeRoomLeave(leaveGuard, nameStore.name, roomStore)
+);
 </script>
 
 <template>
