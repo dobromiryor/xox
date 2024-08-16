@@ -5,8 +5,8 @@ import LinkButton from "~/components/atoms/LinkButton.vue";
 import Loader from "~/components/atoms/Loader.vue";
 import { useNameStore } from "~/stores/name.store";
 import { useStatsStore } from "~/stores/stats.store";
-import { getStats } from "~/supabase/api/stats.api";
 import { PlayerStats } from "~/types/playerStats.type";
+import { getStats } from "~/utils/getStats";
 
 const statsStore = useStatsStore();
 const nameStore = useNameStore();
