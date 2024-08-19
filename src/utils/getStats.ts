@@ -35,6 +35,8 @@ export const getStats = async (): Promise<PlayerStats[]> => {
             statsStore.totalWins++;
             updateWin(room, room.result as Mark);
             break;
+          default:
+            break;
         }
       }
     });
