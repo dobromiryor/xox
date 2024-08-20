@@ -3,7 +3,7 @@ import { BOARD } from "~/consts/board.const";
 import { useNameStore } from "~/stores/name.store";
 import { useRoomStore } from "~/stores/room.store";
 import { supabase } from "~/supabase/supabaseClient";
-import { InsertRoom, RoomRow, UpdateRoom } from "~/types/room.types";
+import { type InsertRoom, type RoomRow, type UpdateRoom } from "~/types/room.types";
 
 interface Options {
 	syncData?: boolean;

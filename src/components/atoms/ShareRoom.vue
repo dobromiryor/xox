@@ -29,6 +29,7 @@ const handleCopy = async () => {
 };
 
 const handleShare = async () => {
+	/* global ShareData */
 	const data: ShareData = {
 		url: `${roomStore.room_name}`,
 		text: `Join ${nameStore.name} in xox!`,
@@ -51,20 +52,17 @@ onUnmounted(() => clearTimeout(copiedTimeout.value));
 
 <template>
 	<div
-		class="fixed bottom-4 right-4 flex flex-col gap-1 justify-center items-center text-zinc-900 z-50"
-	>
+		class="fixed bottom-4 right-4 flex flex-col gap-1 justify-center items-center text-zinc-900 z-50">
 		<p
 			v-if="copied"
 			aria-live="polite"
-			class="p-1 bg-bg-secondary text-white rounded text-xs opacity-0 select-none pointer-events-none animate-copied"
-		>
+			class="p-1 bg-bg-secondary text-white rounded text-xs opacity-0 select-none pointer-events-none animate-copied">
 			Copied to clipboard!
 		</p>
 		<button
 			aria-label="Share room name"
 			class="relative group hover:bg-bg-secondary px-2 py-0.5 rounded transition-all"
-			@click="handleShare"
-		>
+			@click="handleShare">
 			<span
 				aria-hidden="true"
 				class="absolute top-1/2 -left-1 -translate-y-1/2 transition-all transition-allow-discrete -z-10 select-none text-xs"

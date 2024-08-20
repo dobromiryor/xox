@@ -1,8 +1,8 @@
 import { Mark } from "~/enums/mark.enum";
 import { useStatsStore } from "~/stores/stats.store";
 import { getAllRooms } from "~/supabase/api/room.api";
-import { PlayerStats } from "~/types/playerStats.type";
-import { RoomRow } from "~/types/room.types";
+import { type PlayerStats } from "~/types/playerStats.type";
+import { type RoomRow } from "~/types/room.types";
 
 /**
  * Retrieves and calculates player statistics from all rooms.

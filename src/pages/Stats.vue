@@ -5,7 +5,7 @@ import LinkButton from "~/components/atoms/LinkButton.vue";
 import Loader from "~/components/atoms/Loader.vue";
 import { useNameStore } from "~/stores/name.store";
 import { useStatsStore } from "~/stores/stats.store";
-import { PlayerStats } from "~/types/playerStats.type";
+import { type PlayerStats } from "~/types/playerStats.type";
 import { getStats } from "~/utils/getStats";
 
 const statsStore = useStatsStore();
@@ -36,8 +36,7 @@ onMounted(async () => {
 				'before:absolute before:-top-[2px] before:-left-[2px] before:flex before:flex-col before:w-[calc(100%_+_4px)] before:h-[calc(100%_+_4px)] before:rounded-xl before:shadow-2xl before:bg-gradient-to-b before:from-gray-300 before:via-bg-secondary before:to-gray-700 before:from-[-100%] before:to-[200%] before:-z-10': true,
 				/*  */
 				'relative flex-1 flex flex-col justify-between gap-3 w-[calc(100%_-_4px)] max-w-lg min-h-[412px] max-h-[700px] m-auto p-4 bg-bg-secondary rounded-xl z-auto': true,
-			}"
-		>
+			}">
 			<Display class="flex-1 justify-stretch items-baseline overflow-auto">
 				<Loader v-if="statsStore.isLoading" class="self-center mx-auto" />
 				<table v-else class="flex-1 border-spacing-4 text-center">
@@ -61,11 +60,11 @@ onMounted(async () => {
 							<td>{{ statsStore.totalTies }}</td>
 						</tr>
 						<tr
-							v-for="player in statsStore.players.sort(byWinLossRatio)"
+							v-for="(player, index) in statsStore.players.sort(byWinLossRatio)"
+							:key="`Table__Row__${player.name}__${index}`"
 							:class="{
 								'bg-white text-zinc-900': nameStore.name === player.name,
-							}"
-						>
+							}">
 							<th scope="row">{{ player.name }}</th>
 							<td>{{ player.totalGames }}</td>
 							<td>{{ player.totalFinishedGames }}</td>

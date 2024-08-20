@@ -1,4 +1,4 @@
-import { Database } from "~/types/supabase.types";
+import { type Database } from "~/types/supabase.types";
 
 export type RoomRow = Database["public"]["Tables"]["rooms"]["Row"];
 

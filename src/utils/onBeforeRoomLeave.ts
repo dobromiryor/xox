@@ -1,6 +1,6 @@
-import { RouteLocationNormalizedGeneric } from "vue-router";
+import { type RouteLocationNormalizedGeneric } from "vue-router";
 import { Result } from "~/enums/result.enum";
-import { useRoomStore } from "~/stores/room.store";
+import { type useRoomStore } from "~/stores/room.store";
 import { deleteRoom, updateRoomByName } from "~/supabase/api/room.api";
 
 export const onBeforeRoomLeave = async (
@@ -10,7 +10,7 @@ export const onBeforeRoomLeave = async (
 ) => {
 	if (!roomStore.room_name) return;
 	/* kicked for duplicate name */
-	if (!!leaveGuard.query?.error) return true;
+	if (leaveGuard.query?.error) return true;
 	/* game over */
 	if (roomStore.result) return true;
 

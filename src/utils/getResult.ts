@@ -1,6 +1,6 @@
 import { Mark } from "~/enums/mark.enum";
 import { Result } from "~/enums/result.enum";
-import { Database } from "~/types/supabase.types";
+import { type Database } from "~/types/supabase.types";
 
 type BoardType = Database["public"]["Tables"]["rooms"]["Row"]["board"];
 type MarkType = Database["public"]["Enums"]["mark"];
@@ -122,7 +122,7 @@ export const getWinningLine = (winner: MarkType, board: BoardType) => {
 	if (isDiagonalWinner(winner, board)) {
 		const lines = getDiagonalLines(board);
 
-		let line = [
+		const line = [
 			[winner, null, null],
 			[null, winner, null],
 			[null, null, winner],

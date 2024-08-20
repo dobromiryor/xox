@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { EMOJI } from "~/consts/emoji.const";
-import { Mark } from "~/enums/mark.enum";
+import { type Mark } from "~/enums/mark.enum";
 import { useRoomStore } from "~/stores/room.store";
 
 const { emoji, mark } = defineProps<{
@@ -23,16 +23,6 @@ if (mark) {
 		/* clear.alt */
 	}
 }
-
-!!mark
-	? !!emoji && emoji !== "clear"
-		? `${EMOJI[emoji]?.alt} from ${
-				roomStore[mark?.toLowerCase() as keyof typeof roomStore]
-			}`
-		: ""
-	: !!emoji && emoji !== "clear"
-	? EMOJI[emoji]?.alt
-	: EMOJI.clear.alt;
 </script>
 
 <template>
@@ -48,14 +38,11 @@ if (mark) {
 					? EMOJI[emoji]?.alt
 					: EMOJI.clear.alt
 		"
-		class="flex font-emoji text-xs min-[320px]:text-sm sm:text-base"
-	>
+		class="flex font-emoji text-xs min-[320px]:text-sm sm:text-base">
 		<span
 			aria-hidden="true"
-			v-if="emoji"
-			v-for="(emoji, index) in EMOJI[emoji]?.emoji"
-			:key="`Emoji__Span__${emoji}__${index}__${Date.now()}`"
-		>
+			v-for="(emoji, index) in EMOJI[emoji!]?.emoji ?? []"
+			:key="`Emoji__Span__${emoji}__${index}__${Date.now()}`">
 			{{ emoji }}
 		</span>
 	</p>

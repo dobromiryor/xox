@@ -1,4 +1,4 @@
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 

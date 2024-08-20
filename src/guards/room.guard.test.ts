@@ -1,6 +1,6 @@
 import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { RouteLocationNormalizedGeneric } from "vue-router";
+import { type RouteLocationNormalizedGeneric } from "vue-router";
 import { ErrorMessage } from "~/enums/error.enum";
 import { useNameStore } from "~/stores/name.store";
 import { findRoomByName } from "~/supabase/api/room.api";

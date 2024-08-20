@@ -3,7 +3,7 @@ import {
 REALTIME_LISTEN_TYPES,
 REALTIME_POSTGRES_CHANGES_LISTEN_EVENT,
 REALTIME_PRESENCE_LISTEN_EVENTS,
-RealtimePostgresChangesPayload,
+type RealtimePostgresChangesPayload,
 } from "@supabase/supabase-js";
 import { onMounted, onUnmounted } from "vue";
 import { onBeforeRouteLeave, useRoute, useRouter } from "vue-router";
@@ -17,8 +17,8 @@ import { useNameStore } from "~/stores/name.store";
 import { useRoomStore } from "~/stores/room.store";
 import { findRoomByName, updateRoomByName } from "~/supabase/api/room.api";
 import { supabase } from "~/supabase/supabaseClient";
-import { Player } from "~/types/player.type";
-import { RoomRow } from "~/types/room.types";
+import { type Player } from "~/types/player.type";
+import { type RoomRow } from "~/types/room.types";
 import { onBeforeRoomLeave } from "~/utils/onBeforeRoomLeave";
 import Board from "../organisms/Board.vue";
 

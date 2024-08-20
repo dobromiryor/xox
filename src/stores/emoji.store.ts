@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { EMOJI } from "~/consts/emoji.const";
+import { type EMOJI } from "~/consts/emoji.const";
 import { useRoomStore } from "~/stores/room.store";
 
 export const useEmojiStore = defineStore("emoji", () => {

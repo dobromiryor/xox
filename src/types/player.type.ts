@@ -1,4 +1,4 @@
-import { Mark } from "~/enums/mark.enum";
+import { type Mark } from "~/enums/mark.enum";
 
 export interface Player {
 	presence_ref: string;

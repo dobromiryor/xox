@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { PlayerStats } from "~/types/playerStats.type";
+import { type PlayerStats } from "~/types/playerStats.type";
 
 export const useStatsStore = defineStore("stats", () => {
 	const isLoading = ref(false);

@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import { computed, Ref, ref } from "vue";
+import { computed, type Ref, ref } from "vue";
 import { BOARD } from "~/consts/board.const";
 import { Mark } from "~/enums/mark.enum";
 import { useNameStore } from "~/stores/name.store";
-import { BoardType } from "~/types/board.type";
-import { Player } from "~/types/player.type";
-import { Database } from "~/types/supabase.types";
+import { type BoardType } from "~/types/board.type";
+import { type Player } from "~/types/player.type";
+import { type Database } from "~/types/supabase.types";
 import { getWinningLine } from "~/utils/getResult";
 
 type ResultType = Database["public"]["Enums"]["result"];

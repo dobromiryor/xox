@@ -2,7 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, test, vitest } from "vitest";
 import { ErrorMessage } from "~/enums/error.enum";
 import { useRoomStore } from "~/stores/room.store";
-import { RoomRow } from "~/types/room.types";
+import { type RoomRow } from "~/types/room.types";
 import { onBeforeRoomLeave } from "~/utils/onBeforeRoomLeave";
 
 const initialRoomStoreState: RoomRow = {

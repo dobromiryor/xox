@@ -14,7 +14,7 @@ const handleClick = async (rowIndex: number, squareIndex: number) => {
 	const result = getResult(roomStore.turn, newBoard);
 
 	await updateRoomByName(roomStore.room_name!, {
-		...(!!result ? { result } : {}),
+		...(result ? { result } : {}),
 		board: newBoard,
 		turn: roomStore.turn === Mark.X ? Mark.O : Mark.X,
 	});

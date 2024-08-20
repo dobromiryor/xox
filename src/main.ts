@@ -1,6 +1,6 @@
 import { createPinia } from "pinia";
 import { createApp } from "vue";
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import App from "~/App.vue";
 import { roomGuard } from "~/guards/room.guard";
 import Home from "~/pages/Home.vue";

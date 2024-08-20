@@ -2,7 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useStatsStore } from "~/stores/stats.store";
 import { getAllRooms } from "~/supabase/api/room.api";
-import { RoomRow } from "~/types/room.types";
+import { type RoomRow } from "~/types/room.types";
 import { getStats } from "./getStats";
 
 describe("getStats", () => {

@@ -19,7 +19,7 @@ watch(
 	() => route.query,
 	() => {
 		/* populate room input on error */
-		if (!!route.query.room) {
+		if (route.query.room) {
 			roomInput.value = route.query.room;
 		}
 	}
@@ -28,7 +28,7 @@ watch(
 const joinRoom = async () => {
 	router.replace({ query: null! });
 	if (nameStore.name) {
-		if (!!roomInput.value) {
+		if (roomInput.value) {
 			localStorage.setItem("xox", nameStore.name);
 
 			router.push(`/r/${roomInput.value}`);
