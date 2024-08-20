@@ -10,41 +10,41 @@ import { RoomRow } from "~/types/room.types";
  * @return {Promise<PlayerStats[]>} An array of player statistics.
  */
 export const getStats = async (): Promise<PlayerStats[]> => {
-  const statsStore = useStatsStore();
+	const statsStore = useStatsStore();
 
-  statsStore.$reset();
+	statsStore.$reset();
 
-  statsStore.isLoading = true;
+	statsStore.isLoading = true;
 
-  const { data: rooms } = await getAllRooms();
+	const { data: rooms } = await getAllRooms();
 
-  if (rooms) {
-    rooms.forEach((room) => {
-      statsStore.totalGames++;
+	if (rooms) {
+		rooms.forEach((room) => {
+			statsStore.totalGames++;
 
-      if (room.result) {
-        statsStore.totalFinishedGames++;
+			if (room.result) {
+				statsStore.totalFinishedGames++;
 
-        switch (room.result) {
-          case "TIE":
-            statsStore.totalTies++;
-            updateTie(room);
-            break;
-          case "X":
-          case "O":
-            statsStore.totalWins++;
-            updateWin(room, room.result as Mark);
-            break;
-          default:
-            break;
-        }
-      }
-    });
-  }
+				switch (room.result) {
+					case "TIE":
+						statsStore.totalTies++;
+						updateTie(room);
+						break;
+					case "X":
+					case "O":
+						statsStore.totalWins++;
+						updateWin(room, room.result as Mark);
+						break;
+					default:
+						break;
+				}
+			}
+		});
+	}
 
-  statsStore.isLoading = false;
+	statsStore.isLoading = false;
 
-  return statsStore.players;
+	return statsStore.players;
 };
 
 /**
@@ -55,20 +55,20 @@ export const getStats = async (): Promise<PlayerStats[]> => {
  * @return {void}
  */
 const initializePlayerStats = (room: RoomRow, mark: Mark): void => {
-  const statsStore = useStatsStore();
+	const statsStore = useStatsStore();
 
-  const player = mark === Mark.X ? room.x : room.o;
+	const player = mark === Mark.X ? room.x : room.o;
 
-  if (player) {
-    statsStore.players.push({
-      name: player,
-      totalFinishedGames: room.result ? 1 : 0,
-      totalGames: 1,
-      totalLosses: room.result === getOpponentMark(mark) ? 1 : 0,
-      totalTies: room.result === "TIE" ? 1 : 0,
-      totalWins: room.result === mark ? 1 : 0,
-    });
-  }
+	if (player) {
+		statsStore.players.push({
+			name: player,
+			totalFinishedGames: room.result ? 1 : 0,
+			totalGames: 1,
+			totalLosses: room.result === getOpponentMark(mark) ? 1 : 0,
+			totalTies: room.result === "TIE" ? 1 : 0,
+			totalWins: room.result === mark ? 1 : 0,
+		});
+	}
 };
 
 /**
@@ -78,7 +78,7 @@ const initializePlayerStats = (room: RoomRow, mark: Mark): void => {
  * @return {Mark} The opponent mark for the given mark.
  */
 const getOpponentMark = (mark: Mark): Mark =>
-  mark === Mark.X ? Mark.O : Mark.X;
+	mark === Mark.X ? Mark.O : Mark.X;
 
 /**
  * Updates the statistics for a tie game.
@@ -87,46 +87,46 @@ const getOpponentMark = (mark: Mark): Mark =>
  * @return {void}
  */
 const updateTie = (room: RoomRow): void => {
-  const statsStore = useStatsStore();
+	const statsStore = useStatsStore();
 
-  const xPlayer = statsStore.players.find((player) => player.name === room.x);
-  const oPlayer = statsStore.players.find((player) => player.name === room.o);
+	const xPlayer = statsStore.players.find((player) => player.name === room.x);
+	const oPlayer = statsStore.players.find((player) => player.name === room.o);
 
-  if (!xPlayer) {
-    initializePlayerStats(room, Mark.X);
-  }
-  if (!oPlayer) {
-    initializePlayerStats(room, Mark.O);
-  }
+	if (!xPlayer) {
+		initializePlayerStats(room, Mark.X);
+	}
+	if (!oPlayer) {
+		initializePlayerStats(room, Mark.O);
+	}
 
-  const filteredPlayers = statsStore.players.filter(
-    (player) => player.name !== xPlayer?.name && player.name !== oPlayer?.name
-  );
+	const filteredPlayers = statsStore.players.filter(
+		(player) => player.name !== xPlayer?.name && player.name !== oPlayer?.name
+	);
 
-  if (xPlayer) {
-    xPlayer.totalTies++;
-    xPlayer.totalGames++;
-    if (room.result !== null) {
-      xPlayer.totalFinishedGames++;
-    }
-  }
+	if (xPlayer) {
+		xPlayer.totalTies++;
+		xPlayer.totalGames++;
+		if (room.result !== null) {
+			xPlayer.totalFinishedGames++;
+		}
+	}
 
-  if (oPlayer) {
-    oPlayer.totalTies++;
-    oPlayer.totalGames++;
-    if (room.result !== null) {
-      oPlayer.totalFinishedGames++;
-    }
-  }
+	if (oPlayer) {
+		oPlayer.totalTies++;
+		oPlayer.totalGames++;
+		if (room.result !== null) {
+			oPlayer.totalFinishedGames++;
+		}
+	}
 
-  statsStore.players = [...filteredPlayers];
+	statsStore.players = [...filteredPlayers];
 
-  if (xPlayer) {
-    statsStore.players.push(xPlayer);
-  }
-  if (oPlayer) {
-    statsStore.players.push(oPlayer);
-  }
+	if (xPlayer) {
+		statsStore.players.push(xPlayer);
+	}
+	if (oPlayer) {
+		statsStore.players.push(oPlayer);
+	}
 };
 
 /**
@@ -137,38 +137,38 @@ const updateTie = (room: RoomRow): void => {
  * @return {void}
  */
 const updateWin = (room: RoomRow, mark: Mark): void => {
-  const statsStore = useStatsStore();
+	const statsStore = useStatsStore();
 
-  const xPlayer = statsStore.players.find((player) => player.name === room.x);
-  const oPlayer = statsStore.players.find((player) => player.name === room.o);
+	const xPlayer = statsStore.players.find((player) => player.name === room.x);
+	const oPlayer = statsStore.players.find((player) => player.name === room.o);
 
-  if (!xPlayer) {
-    initializePlayerStats(room, Mark.X);
-  }
-  if (!oPlayer) {
-    initializePlayerStats(room, Mark.O);
-  }
+	if (!xPlayer) {
+		initializePlayerStats(room, Mark.X);
+	}
+	if (!oPlayer) {
+		initializePlayerStats(room, Mark.O);
+	}
 
-  const filteredPlayers = statsStore.players.filter(
-    (player) => player.name !== xPlayer?.name && player.name !== oPlayer?.name
-  );
+	const filteredPlayers = statsStore.players.filter(
+		(player) => player.name !== xPlayer?.name && player.name !== oPlayer?.name
+	);
 
-  if (xPlayer) {
-    incrementPlayerStats(xPlayer, mark);
-  }
+	if (xPlayer) {
+		incrementPlayerStats(xPlayer, mark);
+	}
 
-  if (oPlayer) {
-    incrementPlayerStats(oPlayer, mark === Mark.X ? Mark.O : Mark.X);
-  }
+	if (oPlayer) {
+		incrementPlayerStats(oPlayer, mark === Mark.X ? Mark.O : Mark.X);
+	}
 
-  statsStore.players = [...filteredPlayers];
+	statsStore.players = [...filteredPlayers];
 
-  if (xPlayer) {
-    statsStore.players.push(xPlayer);
-  }
-  if (oPlayer) {
-    statsStore.players.push(oPlayer);
-  }
+	if (xPlayer) {
+		statsStore.players.push(xPlayer);
+	}
+	if (oPlayer) {
+		statsStore.players.push(oPlayer);
+	}
 };
 
 /**
@@ -179,13 +179,13 @@ const updateWin = (room: RoomRow, mark: Mark): void => {
  * @return {void}
  */
 const incrementPlayerStats = (player: PlayerStats, mark: Mark): void => {
-  player.totalGames++;
-  if (mark === Mark.X) {
-    player.totalWins++;
-  } else {
-    player.totalLosses++;
-  }
-  if (player.totalGames > 0) {
-    player.totalFinishedGames++;
-  }
+	player.totalGames++;
+	if (mark === Mark.X) {
+		player.totalWins++;
+	} else {
+		player.totalLosses++;
+	}
+	if (player.totalGames > 0) {
+		player.totalFinishedGames++;
+	}
 };

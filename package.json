@@ -1,31 +1,31 @@
 {
-  "name": "xox",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
-    "tsc": "vue-tsc -w",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.45.0",
-    "pinia": "^2.2.0",
-    "random-word-slugs": "^0.1.7",
-    "vue": "^3.4.35",
-    "vue-router": "^4.4.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.1",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.40",
-    "supabase": "^1.187.10",
-    "tailwindcss": "^3.4.7",
-    "typescript": "^5.5.4",
-    "vite": "^5.3.5",
-    "vitest": "^2.0.5",
-    "vue-tsc": "^2.0.29"
-  }
+	"name": "xox",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc -b && vite build",
+		"preview": "vite preview",
+		"tsc": "vue-tsc -w",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"@supabase/supabase-js": "^2.45.0",
+		"pinia": "^2.2.0",
+		"random-word-slugs": "^0.1.7",
+		"vue": "^3.4.35",
+		"vue-router": "^4.4.0"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^5.1.1",
+		"autoprefixer": "^10.4.19",
+		"postcss": "^8.4.40",
+		"supabase": "^1.187.10",
+		"tailwindcss": "^3.4.7",
+		"typescript": "^5.5.4",
+		"vite": "^5.3.5",
+		"vitest": "^2.0.5",
+		"vue-tsc": "^2.0.29"
+	}
 }

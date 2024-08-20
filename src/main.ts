@@ -11,15 +11,15 @@ import "~/style.css";
 const pinia = createPinia();
 
 const routes: RouteRecordRaw[] = [
-  { path: "/", name: "Home", component: Home },
-  { path: "/r/:room_name", component: Room, beforeEnter: roomGuard },
-  { path: "/stats", component: Stats },
-  { path: "/:pathMatch(.*)*", redirect: "/" },
+	{ path: "/", name: "Home", component: Home },
+	{ path: "/r/:room_name", component: Room, beforeEnter: roomGuard },
+	{ path: "/stats", component: Stats },
+	{ path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+	history: createWebHistory(),
+	routes,
 });
 
 createApp(App).use(pinia).use(router).mount("#app");

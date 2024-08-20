@@ -6,7 +6,7 @@ import { supabase } from "~/supabase/supabaseClient";
 import { InsertRoom, RoomRow, UpdateRoom } from "~/types/room.types";
 
 interface Options {
-  syncData?: boolean;
+	syncData?: boolean;
 }
 
 /**
@@ -18,40 +18,40 @@ interface Options {
  * @return {Promise<{ data: RoomRow | null }>} The inserted room data, or null if the operation failed.
  */
 export const insertRoom = async (
-  payload?: InsertRoom,
-  { syncData }: Options = { syncData: true }
+	payload?: InsertRoom,
+	{ syncData }: Options = { syncData: true }
 ): Promise<{ data: RoomRow | null }> => {
-  try {
-    const nameStore = useNameStore();
-    const roomStore = useRoomStore();
+	try {
+		const nameStore = useNameStore();
+		const roomStore = useRoomStore();
 
-    roomStore.isLoading = true;
+		roomStore.isLoading = true;
 
-    const board = BOARD;
+		const board = BOARD;
 
-    const insertionData = payload ?? { x: nameStore.name };
+		const insertionData = payload ?? { x: nameStore.name };
 
-    const { data } = await supabase
-      .from("rooms")
-      .insert({
-        room_name: generateSlug(),
-        board,
-        ...insertionData,
-      })
-      .select()
-      .limit(1)
-      .single();
+		const { data } = await supabase
+			.from("rooms")
+			.insert({
+				room_name: generateSlug(),
+				board,
+				...insertionData,
+			})
+			.select()
+			.limit(1)
+			.single();
 
-    if (data && syncData) {
-      roomStore.setDataFromResponse(data);
-    }
+		if (data && syncData) {
+			roomStore.setDataFromResponse(data);
+		}
 
-    return { data };
-  } catch (error) {
-    console.error("Failed to insert room", error);
+		return { data };
+	} catch (error) {
+		console.error("Failed to insert room", error);
 
-    throw error;
-  }
+		throw error;
+	}
 };
 
 /**
@@ -60,20 +60,20 @@ export const insertRoom = async (
  * @return {Promise<{ data: RoomRow[] | null }>} An object containing an array of room data, or null if the operation failed.
  */
 export const getAllRooms = async (): Promise<{ data: RoomRow[] | null }> => {
-  try {
-    const roomStore = useRoomStore();
-    roomStore.isLoading = true;
+	try {
+		const roomStore = useRoomStore();
+		roomStore.isLoading = true;
 
-    const { data } = await supabase.from("rooms").select();
+		const { data } = await supabase.from("rooms").select();
 
-    roomStore.isLoading = false;
+		roomStore.isLoading = false;
 
-    return { data };
-  } catch (error) {
-    console.error("Failed to get rooms", error);
+		return { data };
+	} catch (error) {
+		console.error("Failed to get rooms", error);
 
-    throw error;
-  }
+		throw error;
+	}
 };
 
 /**
@@ -85,30 +85,30 @@ export const getAllRooms = async (): Promise<{ data: RoomRow[] | null }> => {
  * @return {Promise<{ data: RoomRow | null }>} - A promise that resolves to an object containing the found room data, or null if the operation failed.
  */
 export const findRoomByName = async (
-  room_name: string,
-  { syncData }: Options = { syncData: true }
+	room_name: string,
+	{ syncData }: Options = { syncData: true }
 ): Promise<{ data: RoomRow | null }> => {
-  try {
-    const roomStore = useRoomStore();
+	try {
+		const roomStore = useRoomStore();
 
-    roomStore.isLoading = true;
+		roomStore.isLoading = true;
 
-    const { data } = await supabase
-      .from("rooms")
-      .select()
-      .eq("room_name", room_name)
-      .maybeSingle();
+		const { data } = await supabase
+			.from("rooms")
+			.select()
+			.eq("room_name", room_name)
+			.maybeSingle();
 
-    if (data && syncData) {
-      roomStore.setDataFromResponse(data);
-    }
+		if (data && syncData) {
+			roomStore.setDataFromResponse(data);
+		}
 
-    return { data };
-  } catch (error) {
-    console.error("Failed to find room", error);
+		return { data };
+	} catch (error) {
+		console.error("Failed to find room", error);
 
-    throw error;
-  }
+		throw error;
+	}
 };
 
 /**
@@ -121,32 +121,32 @@ export const findRoomByName = async (
  * @return {Promise<{ data: RoomRow | null }>} - A promise that resolves to an object containing the updated room data, or null if the operation failed.
  */
 export const updateRoomByName = async (
-  room_name: string,
-  payload: UpdateRoom,
-  { syncData }: Options = { syncData: true }
+	room_name: string,
+	payload: UpdateRoom,
+	{ syncData }: Options = { syncData: true }
 ): Promise<{ data: RoomRow | null }> => {
-  try {
-    const roomStore = useRoomStore();
+	try {
+		const roomStore = useRoomStore();
 
-    roomStore.isLoading = true;
+		roomStore.isLoading = true;
 
-    const { data } = await supabase
-      .from("rooms")
-      .update(payload)
-      .eq("room_name", room_name)
-      .select()
-      .single();
+		const { data } = await supabase
+			.from("rooms")
+			.update(payload)
+			.eq("room_name", room_name)
+			.select()
+			.single();
 
-    if (data && syncData) {
-      roomStore.setDataFromResponse(data);
-    }
+		if (data && syncData) {
+			roomStore.setDataFromResponse(data);
+		}
 
-    return { data };
-  } catch (error) {
-    console.error("Failed to update room", error);
+		return { data };
+	} catch (error) {
+		console.error("Failed to update room", error);
 
-    throw error;
-  }
+		throw error;
+	}
 };
 
 /**
@@ -158,22 +158,22 @@ export const updateRoomByName = async (
  * @return {Promise<void>} - A promise that resolves when the room is deleted.
  */
 export const deleteRoom = async (
-  room_name: string,
-  { syncData }: Options = { syncData: true }
+	room_name: string,
+	{ syncData }: Options = { syncData: true }
 ): Promise<void> => {
-  try {
-    const roomStore = useRoomStore();
+	try {
+		const roomStore = useRoomStore();
 
-    roomStore.isLoading = true;
+		roomStore.isLoading = true;
 
-    await supabase.from("rooms").delete().eq("room_name", room_name);
+		await supabase.from("rooms").delete().eq("room_name", room_name);
 
-    if (syncData) {
-      roomStore.$reset();
-    }
-  } catch (error) {
-    console.error("Failed to delete room", error);
+		if (syncData) {
+			roomStore.$reset();
+		}
+	} catch (error) {
+		console.error("Failed to delete room", error);
 
-    throw error;
-  }
+		throw error;
+	}
 };

@@ -9,13 +9,13 @@ const emojiStore = useEmojiStore();
 </script>
 
 <template>
-  <Display class="min-w-[72px] w-full justify-center items-center">
-    <Emoji
-      v-if="!!mark"
-      :role="(emojiStore[mark === Mark.X ? 'lastXEmoji' : 'lastOEmoji'] as keyof typeof EMOJI)&&'alert'"
-      aria-live="polite"
-      :emoji="(emojiStore[mark === Mark.X ? 'lastXEmoji' : 'lastOEmoji'] as keyof typeof EMOJI)"
-      :mark="mark"
-    />
-  </Display>
+	<Display class="min-w-[72px] w-full justify-center items-center">
+		<Emoji
+			v-if="!!mark"
+			:role="(emojiStore[mark === Mark.X ? 'lastXEmoji' : 'lastOEmoji'] as keyof typeof EMOJI)&&'alert'"
+			aria-live="polite"
+			:emoji="(emojiStore[mark === Mark.X ? 'lastXEmoji' : 'lastOEmoji'] as keyof typeof EMOJI)"
+			:mark="mark"
+		/>
+	</Display>
 </template>

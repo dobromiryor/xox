@@ -14,61 +14,61 @@ import { findRoomByName } from "~/supabase/api/room.api";
  * @return {Promise<NavigationGuardReturn>} The redirect object with error message and room name.
  */
 export const roomGuard = async (
-  to: RouteLocationNormalizedGeneric
+	to: RouteLocationNormalizedGeneric
 ): Promise<NavigationGuardReturn> => {
-  const nameStore = useNameStore();
+	const nameStore = useNameStore();
 
-  nameStore.setPersistedName();
+	nameStore.setPersistedName();
 
-  if (!nameStore.name) {
-    /* Name missing */
-    return {
-      path: "/",
-      query: {
-        error:
-          Object.keys(ErrorMessage)[
-            Object.values(ErrorMessage).indexOf(ErrorMessage.NAME)
-          ],
-        room: to.params.room_name as string,
-      },
-    };
-  }
+	if (!nameStore.name) {
+		/* Name missing */
+		return {
+			path: "/",
+			query: {
+				error:
+					Object.keys(ErrorMessage)[
+						Object.values(ErrorMessage).indexOf(ErrorMessage.NAME)
+					],
+				room: to.params.room_name as string,
+			},
+		};
+	}
 
-  const { data } = await findRoomByName(to.params.room_name as string);
+	const { data } = await findRoomByName(to.params.room_name as string);
 
-  if (!data) {
-    /* Room doesn't exist */
-    return {
-      path: "/",
-      replace: true,
-      query: {
-        error:
-          Object.keys(ErrorMessage)[
-            Object.values(ErrorMessage).indexOf(
-              ErrorMessage.ROOM_DOES_NOT_EXIST
-            )
-          ],
-      },
-    };
-  }
+	if (!data) {
+		/* Room doesn't exist */
+		return {
+			path: "/",
+			replace: true,
+			query: {
+				error:
+					Object.keys(ErrorMessage)[
+						Object.values(ErrorMessage).indexOf(
+							ErrorMessage.ROOM_DOES_NOT_EXIST
+						)
+					],
+			},
+		};
+	}
 
-  if (
-    !!data.x &&
-    !!data.o &&
-    data.x !== nameStore.name &&
-    data.o !== nameStore.name
-  ) {
-    /* Room is full */
-    return {
-      path: "/",
-      replace: true,
-      query: {
-        error:
-          Object.keys(ErrorMessage)[
-            Object.values(ErrorMessage).indexOf(ErrorMessage.ROOM_FULL)
-          ],
-        room: to.params.room_name as string,
-      },
-    };
-  }
+	if (
+		!!data.x &&
+		!!data.o &&
+		data.x !== nameStore.name &&
+		data.o !== nameStore.name
+	) {
+		/* Room is full */
+		return {
+			path: "/",
+			replace: true,
+			query: {
+				error:
+					Object.keys(ErrorMessage)[
+						Object.values(ErrorMessage).indexOf(ErrorMessage.ROOM_FULL)
+					],
+				room: to.params.room_name as string,
+			},
+		};
+	}
 };

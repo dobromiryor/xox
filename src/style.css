@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    @apply bg-bg text-black;
-  }
+	:root {
+		@apply bg-bg text-black;
+	}
 
-  html {
-    @apply h-screen overflow-hidden;
-  }
+	html {
+		@apply h-screen overflow-hidden;
+	}
 
-  body,
-  #app {
-    @apply flex m-auto w-full h-full;
-  }
+	body,
+	#app {
+		@apply flex m-auto w-full h-full;
+	}
 }
