@@ -154,6 +154,12 @@ describe("getAllRooms", () => {
 		expect(result).toEqual({ data: roomData });
 	});
 
+	it("sets roomStore.isLoading to true before inserting data", async () => {
+		const roomStore = useRoomStore();
+		getAllRooms().finally(() => expect(roomStore.isLoading).toBe(false));
+		expect(roomStore.isLoading).toBe(true);
+	});
+
 	it("throws an error when the database operation fails", async () => {
 		const error = new Error("Database operation failed");
 		vi.mocked(supabase.from("rooms").select).mockRejectedValueOnce(error);
@@ -229,9 +235,9 @@ describe("findRoomByName", () => {
 
 		const roomStore = useRoomStore();
 
-		findRoomByName("test-room-name").finally(() =>
-			expect(roomStore.isLoading).toBe(false)
-		);
+		findRoomByName("test-room-name").finally(() => {
+			expect(roomStore.isLoading).toBe(false);
+		});
 
 		expect(roomStore.isLoading).toBe(true);
 	});

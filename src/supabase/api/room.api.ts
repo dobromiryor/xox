@@ -3,7 +3,11 @@ import { BOARD } from "~/consts/board.const";
 import { useNameStore } from "~/stores/name.store";
 import { useRoomStore } from "~/stores/room.store";
 import { supabase } from "~/supabase/supabaseClient";
-import { type InsertRoom, type RoomRow, type UpdateRoom } from "~/types/room.types";
+import {
+	type InsertRoom,
+	type RoomRow,
+	type UpdateRoom,
+} from "~/types/room.types";
 
 interface Options {
 	syncData?: boolean;
@@ -102,6 +106,8 @@ export const findRoomByName = async (
 		if (data && syncData) {
 			roomStore.setDataFromResponse(data);
 		}
+
+		roomStore.isLoading = false;
 
 		return { data };
 	} catch (error) {
