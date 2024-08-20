@@ -1,5 +1,9 @@
 import { useRoomStore } from "~/stores/room.store";
-import { InsertRoom, RoomRow, UpdateRoom } from "~/types/room.types";
+import {
+	type InsertRoom,
+	type RoomRow,
+	type UpdateRoom,
+} from "~/types/room.types";
 import {
 	deleteRoom,
 	findRoomByName,
@@ -302,8 +306,6 @@ describe("updateRoomByName", () => {
 
 		const result = await updateRoomByName("test-room-name", updatedRoomData);
 
-		console.log(result);
-
 		expect(result).toEqual({ data: roomData });
 	});
 
@@ -384,7 +386,8 @@ describe("deleteRoom", () => {
 	});
 
 	it("deletes the room when the room exists", async () => {
-		expect(deleteRoom("test-room-name")).not.to.rejects;
+		const error = new Error("Database operation failed");
+		expect(deleteRoom("test-room-name")).not.toThrow(error);
 	});
 
 	it("calls roomStore.$reset when syncData is true", async () => {
